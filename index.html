@@ -1,0 +1,108 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>sinestesie-se</title>
+  <style>
+    :root {
+      --verde-marinho: #276d6b;
+      --verde-água: #cce8df;
+      --laranja-sol: #ffa94d;
+      --fundo: #ffffff;
+      --texto: #222222;
+      --fonte: 'Georgia', serif;
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--fonte);
+      background-color: var(--fundo);
+      color: var(--texto);
+      line-height: 1.6;
+    }
+
+    header {
+      background: linear-gradient(90deg, var(--verde-marinho), var(--verde-água));
+      color: white;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2.5rem;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: auto;
+      padding: 2rem;
+    }
+
+    article {
+      margin-bottom: 3rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid #ccc;
+    }
+
+    h2 {
+      color: var(--verde-marinho);
+    }
+
+    a.read-more {
+      display: inline-block;
+      margin-top: 0.5rem;
+      color: var(--laranja-sol);
+      text-decoration: none;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>sinestesie-se</h1>
+    <p>textos e reflexões fora do algoritmo</p>
+  </header>
+
+  <div class="container" id="blog">
+    <p>Carregando textos...</p>
+  </div>
+
+  <script>
+    async function loadPosts() {
+      const postContainer = document.getElementById("blog");
+      postContainer.innerHTML = "";
+
+      try {
+        const response = await fetch("posts.json");
+        const postFiles = await response.json();
+
+        postFiles.forEach((file) => {
+          fetch("posts/" + file)
+            .then((res) => res.text())
+            .then((text) => {
+              const lines = text.split('\n');
+              const titleLine = lines.find(line => line.startsWith("Título:"));
+              const title = titleLine ? titleLine.replace("Título:", "").trim() : "Sem título";
+              const preview = lines.slice(2).join(" ").substring(0, 120) + "...";
+
+              const article = document.createElement("article");
+              article.innerHTML = `
+                <h2>${title}</h2>
+                <p>${preview}</p>
+                <a class="read-more" href="posts/${file}" target="_blank">ler mais</a>
+              `;
+              postContainer.appendChild(article);
+            });
+        });
+      } catch (err) {
+        postContainer.innerHTML = "<p>Erro ao carregar os textos.</p>";
+      }
+    }
+
+    loadPosts();
+  </script>
+</body>
+</html>
