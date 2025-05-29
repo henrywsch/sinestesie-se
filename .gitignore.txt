@@ -1,0 +1,11 @@
+manual-sinestesie-se-basic.pdf
+# Ignorar script de atualização
+atualizar-sinestesie-se.command
+atualizar-sinestesie-se-flex.command
+
+# Ignorar arquivos temporários do macOS
+.DS_Store
+
+# Ignorar arquivos de swap do editor
+*.swp
+*.swo

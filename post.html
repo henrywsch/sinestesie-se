@@ -1,0 +1,29 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Post</title>
+  <style>
+    body { font-family: Georgia, serif; background: #fff; color: #222; padding: 2rem; max-width: 700px; margin: auto; }
+    h1 { color: #276d6b; }
+    a { color: #ffa94d; text-decoration: none; display: inline-block; margin-top: 2rem; }
+  </style>
+</head>
+<body>
+  <div id="content">Carregando post...</div>
+  <a href="index.html">← voltar ao início</a>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const file = params.get("p");
+    fetch("posts/" + file)
+      .then(res => res.text())
+      .then(text => {
+        const lines = text.split('\n');
+        const title = lines.find(l => l.startsWith("Título:")).replace("Título:", "").trim();
+        const content = lines.slice(2).join("\n\n");
+        document.getElementById("content").innerHTML = `<h1>${title}</h1><p>${content.replace(/\n/g, "<br>")}</p>`;
+      });
+  </script>
+</body>
+</html>
