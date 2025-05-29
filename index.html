@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <title>sinestesie-se</title>
@@ -26,7 +26,6 @@
       color: #ffa94d;
       text-decoration: none;
     }
-    /* Rodapé sobre mim */
     footer {
       display: flex;
       align-items: center;
@@ -79,7 +78,8 @@
 </head>
 <body>
   <h1>sinestesie-se</h1>
-  <div id="posts">Carregando textos...</div>
+  <div id="posts">Loading posts...</div>
+
   <script>
     fetch("posts.json")
       .then(res => res.json())
@@ -91,11 +91,11 @@
             .then(res => res.text())
             .then(text => {
               const lines = text.split('\n');
-              const titleLine = lines.find(l => l.startsWith("Título:")) || "Título: Sem título";
+              const titleLine = lines.find(l => l.startsWith("Título:")) || "Título: Untitled";
               const title = titleLine.replace("Título:", "").trim();
               const preview = lines.slice(2).join(" ").substring(0, 100) + "...";
               const article = document.createElement("article");
-              article.innerHTML = `<h2>${title}</h2><p>${preview}</p><a href="post.html?p=${file}">ler mais</a>`;
+              article.innerHTML = `<h2>${title}</h2><p>${preview}</p><a href="post.html?p=${file}">read more</a>`;
               container.appendChild(article);
             });
         });
@@ -103,12 +103,12 @@
   </script>
 
   <footer>
-    <img src="sua-foto.jpg" alt="Foto do Henry" />
+    <img src="sua-foto.jpg" alt="Henry's photo" />
     <div>
-      <p>Oi, sou Henry, criador desse site. Aqui compartilho textos autorais e projetos. Quer receber novidades? Inscreva-se:</p>
+      <p>Hi, I'm Henry, creator of this site. I share original texts and personal projects here. Want to receive updates? Subscribe below:</p>
       <form id="newsletter-form">
-        <input type="email" placeholder="Seu email" required />
-        <button type="submit">Inscrever</button>
+        <input type="email" placeholder="Your email" required />
+        <button type="submit">Subscribe</button>
       </form>
       <p id="newsletter-message"></p>
     </div>
@@ -120,10 +120,10 @@
       const emailInput = this.querySelector('input[type="email"]');
       const message = document.getElementById('newsletter-message');
       if(emailInput.value) {
-        message.textContent = `Obrigado por se inscrever, ${emailInput.value}! (isso é só demo)`;
+        message.textContent = `Thanks for subscribing, ${emailInput.value}! (demo only)`;
         emailInput.value = '';
       }
     });
   </script>
 </body>
-</html> 
+</html>
