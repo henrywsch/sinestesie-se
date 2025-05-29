@@ -1,14 +1,80 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>sinestesie-se</title>
   <style>
-    body { font-family: Georgia, serif; background: #fff; color: #222; margin: 0; padding: 2rem; max-width: 700px; margin: auto; }
-    h1 { color: #276d6b; }
-    article { margin-bottom: 2rem; border-bottom: 1px solid #ccc; padding-bottom: 1rem; }
-    a { color: #ffa94d; text-decoration: none; }
+    body {
+      font-family: Georgia, serif;
+      background: #fff;
+      color: #222;
+      margin: 0;
+      padding: 2rem;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    h1 {
+      color: #276d6b;
+    }
+    article {
+      margin-bottom: 2rem;
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 1rem;
+    }
+    a {
+      color: #ffa94d;
+      text-decoration: none;
+    }
+    /* Rodapé sobre mim */
+    footer {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem 0 2rem 0;
+      border-top: 1px solid #ccc;
+      margin-top: 3rem;
+      font-size: 0.9rem;
+      color: #555;
+    }
+    footer img {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    footer form {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    footer input[type="email"] {
+      padding: 0.5rem;
+      font-size: 1rem;
+      flex-grow: 1;
+      min-width: 180px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    footer button {
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      cursor: pointer;
+      background-color: #276d6b;
+      border: none;
+      color: white;
+      border-radius: 4px;
+      transition: background-color 0.3s ease;
+    }
+    footer button:hover {
+      background-color: #1f5955;
+    }
+    #newsletter-message {
+      color: green;
+      margin-top: 0.5rem;
+      width: 100%;
+    }
   </style>
 </head>
 <body>
@@ -25,7 +91,8 @@
             .then(res => res.text())
             .then(text => {
               const lines = text.split('\n');
-              const title = lines.find(l => l.startsWith("Título:")).replace("Título:", "").trim();
+              const titleLine = lines.find(l => l.startsWith("Título:")) || "Título: Sem título";
+              const title = titleLine.replace("Título:", "").trim();
               const preview = lines.slice(2).join(" ").substring(0, 100) + "...";
               const article = document.createElement("article");
               article.innerHTML = `<h2>${title}</h2><p>${preview}</p><a href="post.html?p=${file}">ler mais</a>`;
@@ -34,5 +101,29 @@
         });
       });
   </script>
+
+  <footer>
+    <img src="sua-foto.jpg" alt="Foto do Henry" />
+    <div>
+      <p>Oi, sou Henry, criador desse site. Aqui compartilho textos autorais e projetos. Quer receber novidades? Inscreva-se:</p>
+      <form id="newsletter-form">
+        <input type="email" placeholder="Seu email" required />
+        <button type="submit">Inscrever</button>
+      </form>
+      <p id="newsletter-message"></p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('newsletter-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const emailInput = this.querySelector('input[type="email"]');
+      const message = document.getElementById('newsletter-message');
+      if(emailInput.value) {
+        message.textContent = `Obrigado por se inscrever, ${emailInput.value}! (isso é só demo)`;
+        emailInput.value = '';
+      }
+    });
+  </script>
 </body>
-</html>
+</html> 
