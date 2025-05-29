@@ -42,38 +42,6 @@
       border-radius: 50%;
       object-fit: cover;
     }
-    footer form {
-      display: flex;
-      gap: 0.5rem;
-      flex-wrap: wrap;
-      align-items: center;
-    }
-    footer input[type="email"] {
-      padding: 0.5rem;
-      font-size: 1rem;
-      flex-grow: 1;
-      min-width: 180px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
-    footer button {
-      padding: 0.5rem 1rem;
-      font-size: 1rem;
-      cursor: pointer;
-      background-color: #276d6b;
-      border: none;
-      color: white;
-      border-radius: 4px;
-      transition: background-color 0.3s ease;
-    }
-    footer button:hover {
-      background-color: #1f5955;
-    }
-    #newsletter-message {
-      color: green;
-      margin-top: 0.5rem;
-      width: 100%;
-    }
   </style>
 </head>
 <body>
@@ -106,24 +74,18 @@
     <img src="sua-foto.jpg" alt="Henry's photo" />
     <div>
       <p>Hi, I'm Henry, creator of this site. I share original texts and personal projects here. Want to receive updates? Subscribe below:</p>
-      <form id="newsletter-form">
-        <input type="email" placeholder="Your email" required />
-        <button type="submit">Subscribe</button>
+      <form action="https://github.us16.list-manage.com/subscribe/post?u=3071e5d1fbf9696903b8a024c&amp;id=803d333d1b&amp;f_id=007820e0f0"
+        method="post"
+        target="_blank"
+        style="display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; max-width: 100%; margin-top: 0.5rem;">
+        
+        <input type="email" name="EMAIL" placeholder="Your email" required
+          style="padding: 0.5rem; font-size: 1rem; width: 300px; border: 1px solid #ccc; border-radius: 4px;" />
+
+        <input type="submit" value="Subscribe"
+          style="padding: 0.5rem 1rem; font-size: 1rem; cursor: pointer; background-color: #276d6b; border: none; color: white; border-radius: 4px;" />
       </form>
-      <p id="newsletter-message"></p>
     </div>
   </footer>
-
-  <script>
-    document.getElementById('newsletter-form').addEventListener('submit', function(e) {
-      e.preventDefault();
-      const emailInput = this.querySelector('input[type="email"]');
-      const message = document.getElementById('newsletter-message');
-      if(emailInput.value) {
-        message.textContent = `Thanks for subscribing, ${emailInput.value}! (demo only)`;
-        emailInput.value = '';
-      }
-    });
-  </script>
 </body>
 </html>
